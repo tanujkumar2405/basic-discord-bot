@@ -138,9 +138,13 @@ async def on_message(message: discord.Message):
                 response = await handle_command(command, params, message, client, config)
 
                 # If the command generated a response
-                if response != None:
-                    # Respond in the channel of the original message
+                # Check if the response is not None and is not just whitespace
+                if response is not None and response.strip():
+                    # Send the response to the same channel where the message was received
                     await client.get_channel(message.channel.id).send(response)
+                else:
+                    # Do nothing if the response is None or empty (after stripping whitespace)
+                    pass  # Optional: can be omitted or used for logging/debugging
 
                 # Log command and parameters
                 print(f'Command: {command}\nParameters: {params}')
