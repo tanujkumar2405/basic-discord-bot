@@ -137,8 +137,8 @@ async def on_message(message: discord.Message):
                 # Get the proper response
                 response = await handle_command(command, params, message, client, config)
 
-                # If the command generated a response
-                # Check if the response is not None and is not just whitespace
+                # If the command generated a valid response (not None or empty/whitespace),
+                # send it to the channel. Otherwise, skip sending.
                 if response is not None and response.strip():
                     # Send the response to the same channel where the message was received
                     await client.get_channel(message.channel.id).send(response)
